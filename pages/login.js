@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Layout from "../src/layout/Layout";
 
-const login = () => {
+const Login = () => {
   return (
     <>
       <Head>
@@ -18,4 +18,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;

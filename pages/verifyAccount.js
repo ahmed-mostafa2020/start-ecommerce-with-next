@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Layout from "../src/layout/Layout";
 
-const verifyAccount = () => {
+const VerifyAccount = () => {
   return (
     <>
       <Head>
@@ -18,4 +18,4 @@ const verifyAccount = () => {
   );
 };
 
-export default verifyAccount;
+export default VerifyAccount;

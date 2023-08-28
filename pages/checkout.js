@@ -2,7 +2,7 @@ import { ChangeTheme } from "@/src/context/ThemeContext";
 import Head from "next/head";
 import Layout from "../src/layout/Layout";
 
-const checkout = () => {
+const Checkout = () => {
   return (
     <>
       <Head>
@@ -19,4 +19,4 @@ const checkout = () => {
   );
 };
 
-export default checkout;
+export default Checkout;

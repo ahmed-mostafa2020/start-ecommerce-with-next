@@ -1,7 +1,14 @@
 import Head from "next/head";
 import HomeLayout from "../src/layout/HomeLayout";
+import Link from "next/link";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { API_URLS } from "../src/util/API_URL";
 
-export default function Home() {
+const Home = ({ data }) => {
+  const { t } = useTranslation();
+  console.log(data.data);
+
   return (
     <>
       <Head>
@@ -13,11 +20,23 @@ export default function Home() {
 
       <HomeLayout>
         <main className="home">
-          <h1>okkkkkkkkkkkk</h1>
-          <h2>noooooooooooo</h2>
-          <h3>yessssssssssss</h3>
+          <h1>{t("React")} </h1>
+
+          <Link href="/profile"> Profile</Link>
         </main>
       </HomeLayout>
     </>
   );
+};
+export default Home;
+
+export async function getServerSideProps({ locale }) {
+  const res = await fetch(API_URLS.HOME, API_URLS.HEADER_GET);
+  const data = await res.json();
+  return {
+    props: {
+      data,
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
 }

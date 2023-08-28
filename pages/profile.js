@@ -1,7 +1,14 @@
 import Head from "next/head";
 import Layout from "../src/layout/Layout";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import Link from "next/link";
+import { API_URLS } from "../src/util/API_URL";
 
-const profile = () => {
+const Profile = ({ data }) => {
+  const { t } = useTranslation();
+
+  console.log("aaaaaaaaaaaa" + data.data);
   return (
     <>
       <Head>
@@ -11,10 +18,27 @@ const profile = () => {
         <link rel="icon" href="/favicon.svg" />
       </Head>
       <Layout>
-        <div className="profile">profile</div>
+        <div className="profile">
+          profile
+          <h1>{t("React")} </h1>
+          <h2>{t("Home")}</h2>
+          <h3>{t("Contact")}</h3>
+          <Link href={"./"}>Home</Link>
+        </div>
       </Layout>
     </>
   );
 };
 
-export default profile;
+export default Profile;
+
+export async function getServerSideProps({ locale }) {
+  const res = await fetch(API_URLS.HOME, API_URLS.HEADER_GET);
+  const data = await res.json();
+  return {
+    props: {
+      data,
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}

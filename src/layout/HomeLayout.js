@@ -5,9 +5,11 @@ import CopyRights from "../components/CopyRights";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { ChangeTheme } from "../context/ThemeContext";
+import { useTranslation } from "next-i18next";
 
 const HomeLayout = ({ children }) => {
   const { myMode } = ChangeTheme();
+  const { i18n } = useTranslation();
 
   const themeLight = createTheme({
     palette: {
@@ -34,7 +36,10 @@ const HomeLayout = ({ children }) => {
   return (
     <ThemeProvider theme={myMode === "light" ? themeLight : themeDark}>
       <CssBaseline />
-      <section className="homeLayout">
+      <section
+        className="homeLayout"
+        dir={i18n.language === "en" ? "ltr" : "rtl"}
+      >
         <div className="topPartWrapper">
           <Header />
           <Navbar />
