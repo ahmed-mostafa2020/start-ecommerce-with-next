@@ -1,45 +1,25 @@
-import { Button } from "@mui/material";
-import { ChangeTheme } from "../context/ThemeContext";
-import { Brightness7, Brightness4 } from "@mui/icons-material";
-import { useRouter } from "next/router";
-import Link from "next/link";
 import { useTranslation } from "next-i18next";
+import { API_URLS } from "../util/API_URL";
+import { getApi } from "../util/getApi?n=nklj";
+import { useEffect, useState } from "react";
 
-const Navbar = () => {
-  const { myMode, setMyMode } = ChangeTheme();
-  const { i18n } = useTranslation();
+export default function Navbar() {
+  const [data, setData] = useState("");
+  const { t } = useTranslation();
 
-  const router = useRouter();
-
-  const handleTheme = () => {
-    localStorage.setItem("currentMode", myMode === "light" ? "dark" : "light");
-    setMyMode(myMode === "light" ? "dark" : "light");
+  const gettingData = async () => {
+    const fetchedData = await getApi(API_URLS.HOME, API_URLS.HEADER_GET);
+    setData(fetchedData);
   };
+
+  useEffect(() => {
+    gettingData();
+  }, []);
 
   return (
     <div className="navbar">
-      {/* Lang */}
-
-      {i18n.language === "en" ? (
-        <Link href={router.pathname} locale="ar">
-          <Button>ar</Button>
-        </Link>
-      ) : (
-        <Link href={router.pathname} locale="en">
-          <Button>en</Button>
-        </Link>
-      )}
-
-      {/* Theme */}
-      <Button sx={{ ml: 1 }} onClick={handleTheme} color="inherit">
-        {myMode === "dark" ? (
-          <Brightness7 sx={{ color: "orange" }} />
-        ) : (
-          <Brightness4 />
-        )}
-      </Button>
+      <p>{t("React")}</p>
+      <p>{data.message}</p>
     </div>
   );
-};
-
-export default Navbar;
+}

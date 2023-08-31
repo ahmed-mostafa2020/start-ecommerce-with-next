@@ -2,10 +2,19 @@
 @import "./responsive";
 
 .header {
-}
-
-.header.light {
-}
-
-.header.dark {
+  padding: 10px 0;
+  border-bottom: 1px solid;
+  .work-date {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .themes {
+      display: flex;
+    }
+  }
 }
